@@ -20,8 +20,8 @@ ARENA_COMMIT="082f95b8958e316404ead5c0e428082bccc5becb"   # 2026-10-27 的 ARENA
 VENV="$ARENA_DIR/.venv"
 LOCK="$REPO_DIR/envs/env-arena.lock"
 KERNEL_JSON=/root/.local/share/jupyter/kernels/arena-env/kernel.json
-GIT_NAME="theswayingreed"     # 填你的 GitHub 显示名，留空则跳过
-GIT_EMAIL="corealitylabs@gmail.com"    # 填你的 commit 邮箱，留空则跳过
+GIT_NAME=""     # 填你的 GitHub 显示名，留空则跳过
+GIT_EMAIL=""    # 填你的 commit 邮箱，留空则跳过
 
 add_line() {  # add_line <文件> <行>：行不存在时才追加
   grep -qxF "$2" "$1" 2>/dev/null || echo "$2" >> "$1"
@@ -98,4 +98,11 @@ print(f"fp32 GPU matmul vs float64 CPU, rel err = {rel:.2e}   (TF32 关闭时约
 assert rel < 1e-5, "误差过大：TF32 可能还开着"
 EOF
 df -h /
+
+# ---------- 7. 空闲自动 stop（后台常驻，已在运行就跳过） ----------
+command -v vastai >/dev/null || uv tool install vastai
+if ! pgrep -f "setup/idle_stop.sh" >/dev/null; then
+  nohup setsid bash "$REPO_DIR/setup/idle_stop.sh" >/dev/null 2>&1 &
+  echo "idle_stop started (log: /root/idle_stop.log)"
+fi
 echo "=== setup done $(date) ==="
