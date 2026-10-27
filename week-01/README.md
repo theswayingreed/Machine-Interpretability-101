@@ -1,4 +1,10 @@
-#E Vast Onstart Script
+# Summary 
+- Rent a machine in vast.ai. Cost $0.18/hr
+- 
+
+
+# References
+## Vast Onstart Script
 
 env >> /etc/environment
 mkdir -p ${DATA_DIRECTORY:-/workspace}
