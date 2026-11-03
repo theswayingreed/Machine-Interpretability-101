@@ -11,8 +11,8 @@
 # 测试：DRY_RUN=1 NO_MEM_LIMIT=2 bash idle_stop.sh   # 只写日志，不真的 stop
 # 日志：/root/idle_stop.log
 # =============================================================================
-NO_MEM_LIMIT=${NO_MEM_LIMIT:-30}
-NO_UTIL_LIMIT=${NO_UTIL_LIMIT:-120}
+NO_MEM_LIMIT=${NO_MEM_LIMIT:-60}
+NO_UTIL_LIMIT=${NO_UTIL_LIMIT:-360}
 MEM_IDLE_MIB=${MEM_IDLE_MIB:-100}     # 显存占用低于这个值（MiB）视为没人在用
 DRY_RUN=${DRY_RUN:-0}
 LOG=/root/idle_stop.log
